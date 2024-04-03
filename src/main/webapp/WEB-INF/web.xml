@@ -1,0 +1,34 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>OnlineOrder WebSite</display-name>
+    <servlet>
+        <servlet-name>onlineOrder</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>onlineOrder</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
+
+<!--这里的流程：-->
+
+<!--1. 运行web.xml文件中的配置：-->
+<!--当Servlet容器启动时，它会加载并解析web.xml文件，然后创建和初始化Servlet。在这个过程中，定义的DispatcherServlet会被实例化。-->
+
+<!--2. 创建IoC容器：-->
+<!--这里定义了一个名为onlineOrder的Servlet，并且指定了它的实现类为Spring框架中的DispatcherServlet。-->
+<!--DispatcherServlet是Spring MVC框架的核心，它接收进入应用程序的HTTP请求并将请求路由到相应的控制器。-->
+<!--在DispatcherServlet初始化过程中，它会创建Spring的IoC容器。-->
+<!--这是通过加载Spring的配置文件完成的，配置文件可以是XML格式的，也可以是通过注解配置的。-->
+<!--需要在Web应用的WEB-INF目录下提供一个[servlet-name]-servlet.xml文件，-->
+<!--这个文件包含了Spring应用上下文的配置信息。-->
+
+<!--3. load-on-startup元素：-->
+<!--web.xml中的<load-on-startup>标签指定了Servlet的加载顺序。-->
+<!--当其值设置为非负数时，容器会在启动时加载并初始化该Servlet，而不是在第一次请求时才加载。-->
+<!--值0意味着onlineOrder Servlet在启动时立刻加载，所以一旦Tomcat启动，Spring的DispatcherServlet就会创建并初始化它的IoC容器。-->
