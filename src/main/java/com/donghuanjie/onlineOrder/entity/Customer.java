@@ -16,6 +16,18 @@ public class Customer implements Serializable {
     private String password;
     private boolean enabled;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public String getEmail() {
         return email;
     }
