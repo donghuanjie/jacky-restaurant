@@ -1,19 +1,3 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
-    <display-name>OnlineOrder WebSite</display-name>
-    <servlet>
-        <servlet-name>onlineOrder</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>onlineOrder</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-</web-app>
 
 <!--这里的流程：-->
 
@@ -32,3 +16,33 @@
 <!--web.xml中的<load-on-startup>标签指定了Servlet的加载顺序。-->
 <!--当其值设置为非负数时，容器会在启动时加载并初始化该Servlet，而不是在第一次请求时才加载。-->
 <!--值0意味着onlineOrder Servlet在启动时立刻加载，所以一旦Tomcat启动，Spring的DispatcherServlet就会创建并初始化它的IoC容器。-->
+
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>OnlineOrder WebSite</display-name>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>onlineOrder</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>onlineOrder</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
+
