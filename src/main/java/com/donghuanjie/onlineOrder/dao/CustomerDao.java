@@ -15,10 +15,16 @@ public class CustomerDao {
 //    DAO 层负责与数据库直接交互。它提供了一系列方法来执行CRUD（创建、读取、更新、删除）操作和其他数据库操作。
 //    这个层次隐藏了数据访问的细节，使上层的服务不需要知道底层使用的是什么数据库或者是JDBC、Hibernate或者JPA等技术。
 
+//    @Repository是一个特化的@Component注解，它被用来标记数据访问对象（DAO），主要用于与数据库的交互。
+//    使用@Repository注解的类被认为是Repository层在Domain-Driven Design（领域驱动设计）中的一部分。
+//    @Repository还拥有将JDBC的数据访问异常转换为Spring的DataAccessException层次结构的能力，为开发者提供了一致的异常处理策略。
+
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
-//    如果在ApplicationConfig中的@Bean没有设置name，则会按照默认方法名，方法名这里本身就是sessionFactory
-//    这里最好使用构造函数注入，现在是field注入，作为example放在这里
+    public CustomerDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     // create
     public void signUp(Customer customer) {
@@ -38,6 +44,7 @@ public class CustomerDao {
             ex.printStackTrace();
             if (session != null) session.getTransaction().rollback();
             throw ex;
+//            throw ex 保证如果保存出错可以把exception throw出去，然后让spring来handle
         } finally {
             if (session != null) {
                 session.close();
